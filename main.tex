@@ -23,7 +23,7 @@
 %%
 %% The first command in your LaTeX source must be the \documentclass command.
 
-\documentclass[sigconf,review]{acmart}
+\documentclass[sigconf]{acmart}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -193,7 +193,8 @@ is published in TSE’18), we find that the SWIFT’s dual optimization of both 
 %%
 %% Keywords. The author(s) should pick words that accurately describe
 %% the work being presented. Separate the keywords with commas.
-\keywords{Hyperparameter Optimization, Data Pre-processing, Security Bug Report}
+
+% \keywords{Hyperparameter Optimization, Data Pre-processing, Security Bug Report}
 
 %% A "teaser" image appears between the author and affiliation
 %% information and the body of the document, and typically spans the
@@ -211,23 +212,28 @@ is published in TSE’18), we find that the SWIFT’s dual optimization of both 
 %% information and builds the first part of the formatted document.
 \maketitle
 
-\subsection*{1. Where is this paper accepted?}
+\subsection*{1. When and where is this paper accepted?}
 
-This paper is accepted by Empirical Software Engineering on Nov 5th, 2020. The amnuscipt ID is \#EMSE-D-19-00267R2. The link to the pre-print version is \url{https://arxiv.org/pdf/1911.02476.pdf}.
+This paper is accepted by Empirical Software Engineering on Nov 5th, 2020. The manuscript ID is \#EMSE-D-19-00267R2. The link to the pre-print version is \textcolor{blue}{\url{https://arxiv.org/pdf/1911.02476.pdf}}.
 
-\subsection*{2. Is the Paper in Scope for ESEC/FSE?}
+\subsection*{2. Is this paper in the scope of ESEC/FSE?}
 
-Yes. blablabla..
+Yes. A problem of increasing difficulty in modern machine learning/deep learning applications is finding the proper set of \textit{hyperparameters} of models to achieve the optimal performance. Hence, lots of previous studies at ESEC/FSE (e.g., ~\cite{chen2019predicting}~\cite{fu2017easy}~\cite{fucci2019using}~\cite{gao2020estimating}) explore how to better optimize their models in recent years.
 
-\subsection*{3. Is the Paper Part of Another JF Program?}
+\subsection*{3. Is this paper part of another journal first program?}
 
 No.
 
-\subsection*{4. Is the Paper Completely New/Novel?}
+\subsection*{4. Is this paper completely new/novel?}
 
-Yes. Blabla..
+Yes. One challenge that researchers face is how to distinguish security bug report properly. To tackle this problem, previous researchers have adopted various machine learning based techniques. However, we observe that, those techniques usually applied default ``off-the-shelf'' model hyperparameters, which results in poor performance. 
 
+Our work applied a novel ``dual optimization'' strategy on previous state-of-the-art FARSEC~\cite{DBLP:journals/tse/PetersTYN19} approach. This strategy applied two kinds of optimization: 1) \textit{Learner} hyperparameter optimization to adjust the parameters of models; 2) \textit{Pre-processor} hyperparameter optimization to adjust any adjustment to training data, prior to learning.
 
+In order to demonstrate the efficiency of dual optimization (i.e., SWIFT), we made comparison experiments with the baseline approach (i.e., FARSEC) as well as state-of-the-art individual optimization methods (i.e., optimizing learners or optimizing pre-processors with the differential evolutionary algorithm). 
+
+As to our overall contribution, we say that this is an important paper: 1) We demonstrate an improved result on prior state-of-the-art; 2) We made a comment on the value of optimizing data pre-processors or data mining
+learners; 3) We demonstrate the practicality of dual optimization.
 
 
 %%
