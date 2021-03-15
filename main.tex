@@ -1,0 +1,256 @@
+%%
+%% This is file `sample-sigconf.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `sigconf')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%% The first command in your LaTeX source must be the \documentclass command.
+
+\documentclass[sigconf,review]{acmart}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\urlstyle{same}
+
+\settopmatter{printacmref=false}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+% \setcopyright{acmcopyright}
+% \copyrightyear{2018}
+% \acmYear{2018}
+% \acmDOI{10.1145/1122445.1122456}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[ESEC/FSE 2021]{The 29th ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering}{23 - 27 August, 2021}{Athens, Greece}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Journal First: How to Better Distinguish Security Bug Reports (using Dual Hyperparameter Optimization)}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+\author{Rui Shu, Tianpei Xia, Jianfeng Chen, Laurie Williams, Tim menzies}
+\email{{rshu, txia4, jchen37, lawilli3}@ncsu.edu, timm@ieee.org}
+\affiliation{%
+  \institution{North Carolina State University}
+  \city{Raleigh}
+  \state{NC}
+  \country{USA}
+}
+
+% \author{Tianpei Xia}
+% \email{txia4@ncsu.edu}
+% \affiliation{%
+%   \institution{North Carolina State University}
+%   \city{Raleigh}
+%   \state{NC}
+%   \country{USA}
+% }
+
+% \author{Jianfeng Chen}
+% \email{jchen37@ncsu.edu}
+% \affiliation{%
+%   \institution{North Carolina State University}
+%   \city{Raleigh}
+%   \state{NC}
+%   \country{USA}
+% }
+
+% \author{Laurie Williams}
+% \email{lawilli3@ncsu.edu}
+% \affiliation{%
+%   \institution{North Carolina State University}
+%   \city{Raleigh}
+%   \state{NC}
+%   \country{USA}
+% }
+
+% \author{Tim Menzies}
+% \email{timm@ieee.org}
+% \affiliation{%
+%   \institution{North Carolina State University}
+%   \city{Raleigh}
+%   \state{NC}
+%   \country{USA}
+% }
+
+
+%%
+%% By default, the full list of authors will be used in the page
+%% headers. Often, this list is too long, and will overlap
+%% other information printed in the page headers. This command allows
+%% the author to define a more concise list
+%% of authors' names for this purpose.
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+In order that the general public is not vulnerable to hackers, security bug reports need to be handled by small groups of engineers before being widely discussed. But learning how to distinguish the security bug reports from other
+bug reports is challenging since they may occur rarely. Data mining methods that can find such scarce targets require extensive optimization effort. The goal of this research is to \textit{aid practitioners as they struggle to optimize methods that try to distinguish between rare security bug reports and other bug
+reports}. Our proposed method, called \textbf{SWIFT}, is a dual optimizer that optimizes both learner and pre-processor options. Since this is a large space of options, SWIFT uses a technique called $\epsilon$-dominance that learns how to avoid operations that do not significantly improve performance.
+
+When compared to recent state-of-the-art results (from FARSEC which
+is published in TSE’18), we find that the SWIFT’s dual optimization of both preprocessor and learner is more useful than optimizing each of them individually. For example, in a study of security bug reports from the Chromium dataset, the median recalls of FARSEC and SWIFT were 15.7\% and 77.4\%, respectively. For another example, in experiments with data from the Ambari project, the median recalls improved from 21.5\% to 85.7\% (FARSEC to SWIFT). Overall, our approach can quickly optimize models that achieve better recalls than the prior state-of-the-art. These increases in recall are associated with moderate increases in false positive rates (from 8\% to 24\%, median). For future work, these results suggest that dual optimization is both practical and useful.
+
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+% \begin{CCSXML}
+% <ccs2012>
+%  <concept>
+%   <concept_id>10010520.10010553.10010562</concept_id>
+%   <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+%   <concept_significance>500</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10010520.10010575.10010755</concept_id>
+%   <concept_desc>Computer systems organization~Redundancy</concept_desc>
+%   <concept_significance>300</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10010520.10010553.10010554</concept_id>
+%   <concept_desc>Computer systems organization~Robotics</concept_desc>
+%   <concept_significance>100</concept_significance>
+%  </concept>
+%  <concept>
+%   <concept_id>10003033.10003083.10003095</concept_id>
+%   <concept_desc>Networks~Network reliability</concept_desc>
+%   <concept_significance>100</concept_significance>
+%  </concept>
+% </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Computer systems organization~Embedded systems}
+% \ccsdesc[300]{Computer systems organization~Redundancy}
+% \ccsdesc{Computer systems organization~Robotics}
+% \ccsdesc[100]{Networks~Network reliability}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{Hyperparameter Optimization, Data Pre-processing, Security Bug Report}
+
+%% A "teaser" image appears between the author and affiliation
+%% information and the body of the document, and typically spans the
+%% page.
+% \begin{teaserfigure}
+%   \includegraphics[width=\textwidth]{sampleteaser}
+%   \caption{Seattle Mariners at Spring Training, 2010.}
+%   \Description{Enjoying the baseball game from the third-base
+%   seats. Ichiro Suzuki preparing to bat.}
+%   \label{fig:teaser}
+% \end{teaserfigure}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+\subsection*{1. Where is this paper accepted?}
+
+This paper is accepted by Empirical Software Engineering on Nov 5th, 2020. The amnuscipt ID is \#EMSE-D-19-00267R2. The link to the pre-print version is \url{https://arxiv.org/pdf/1911.02476.pdf}.
+
+\subsection*{2. Is the Paper in Scope for ESEC/FSE?}
+
+Yes. blablabla..
+
+\subsection*{3. Is the Paper Part of Another JF Program?}
+
+No.
+
+\subsection*{4. Is the Paper Completely New/Novel?}
+
+Yes. Blabla..
+
+
+
+
+%%
+%% The acknowledgments section is defined using the "acks" environment
+%% (and NOT an unnumbered section). This ensures the proper
+%% identification of the section in the article metadata, and the
+%% consistent spelling of the heading.
+
+% \begin{acks}
+% To Robert, for the bagels and explaining CMYK and color spaces.
+% \end{acks}
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{main}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+% \appendix
+
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf.tex'.

@@ -1,0 +1,228 @@
+\documentclass[10pt,conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{array}
+\hypersetup{%
+            bookmarksdepth = {-2},
+            pdfkeywords = {},
+            pdfstartview={FitH},
+            colorlinks = true,
+            urlcolor  = black!30!blue,
+            linkcolor = black,%!30!green,
+            citecolor = black!10!red,
+            anchorcolor = black}
+\usepackage{xcolor}
+\usepackage{dblfloatfix}    % To enable figures at the bottom of page
+\usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{balance}
+\newcommand{\tool}{{\sc BEETLE}\xspace}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\be}{\begin{enumerate}[wide=0pt]}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\eq}[1]{Equation~\ref{eq:#1}}
+\newcommand{\etal}{{\em et al.}\xspace}
+
+\begin{document}
+
+\title{\Large \bf Journal First: Whence to Learn? Transferring Knowledge\\
+in Configurable Systems using BEETLE}
+\author{%
+\IEEEauthorblockN{Rahul Krishna\textsuperscript{1},~%
+    Vivek Nair\textsuperscript{2},~%
+    Pooyan Jamshidi\textsuperscript{3},~%
+    Tim Menzies\textsuperscript{4}}
+\IEEEauthorblockA{
+\textit{\textsuperscript{1}Comp.~Sci, Columbia University, USA};
+\textit{\textsuperscript{2}Facebook, USA};
+\textit{\textsuperscript{3}Comp.~Sci., U.~Sth Carolina, USA};
+\textit{\textsuperscript{4}Comp.~Sci., NCSU, USA}}
+{\em \{i.m.ralk, vivekaxl, pooyan.jamshidi\}@gmail.com,
+timm@ieee.org}
+}
+
+
+
+% \IEEEauthorblockA{
+% \textit{\textsuperscript{2}Facebook Inc., Seattle, WA., USA}}
+% \IEEEauthorblockA{\textit{\textsuperscript{1}Department of Computer Science, Columbia University, USA}}
+% \IEEEauthorblockA{\textit{\textsuperscript{3}Department of Computer Science, University of South Carolina, USA}}
+% \IEEEauthorblockA{\textit{\textsuperscript{4}Department of Computer Science, NC State University University, Raleigh, USA}}
+
+% make the title area
+\maketitle
+\renewcommand\UrlFont{\color{red}\rmfamily\itshape}
+\noindent{\em Paper ID: TSE-2019-06-0167.R2}
+
+\noindent{\em Acceptance: IEEE TSE on March 10, 2020.} 
+
+\noindent{\em DOI: \url{https://doi.org/10.1109/TSE.2020.2983927}}
+
+\noindent{\em Pre-print: \textcolor{red}{\url{https://arxiv.org/abs/1911.01817}}}
+
+
+\subsection*{Is the Paper in Scope for ICSE?} 
+
+Yes. A problem of increasing difficulty in modern software is finding the right set of {\em configurations} to achieve the best performance. 
+%As more functionality is added to the code, it becomes increasingly difficult for users to understand all the options a software offers~\cite{xu2015hey}.
+%It is hard to overstate the importance of good configuration choices and the impact poor choices can have.
+For example, it has been reported that for Apache Storm, the throughput from  the worst configuration was {\em 480 times slower} than that achieved by the best configuration~\cite{JC:MASCOTS16}. Hence, much research at ICSE~\cite{zhang13,zhang14,siegmund15,medeiros16,kaltenecker19} and elsewhere~\cite{krishna18,mensah17b,jamshidi2017transfer2} explores how to  better configure software.
+
+
+%  
+\subsection*{Is This a ``Priority Submission''?}
+Yes. This work qualifies under priority submission under the ICSE 2021 journal ﬁrst CFP guidelines, \textit{``priority will be given to papers with authors that have no (or fewer) papers accepted at the other ICSE tracks''}. The ﬁrst author of this JF submission has no papers accepted at other ICSE tracks and would like to use this opportunity to participate  in ICSE’21.
+
+\subsection*{Is the Paper Part of Another JF Program?}
+No.
+
+\subsection*{Does the Paper Report a Secondary Study?}
+
+No. This paper is a technical paper reporting a novel bellwether based transfer learning approach called BEETLE.
+ 
+\subsection*{Is the Paper Completely New/Novel?}
+% 
+Yes. 
+The transfer learning method, the core algorithm, and the experiments with BEETLE have not been reported before. %Further, this paper is not a minor change to prior work.
+% Recent research has attempted to address this problem usually by creating accurate performance models using blackbox and whitebox ML models~\cite{},  program analysis approaches that predict performance characteristics. While this approach is certainly cheaper and more effective than manual configuration it still incurs the expense of extensive data collection. This is undesirable, since the data collection must be repeated if the software is updated or the workload of the system changes. 
+Rather than learning new configurations afresh, our paper tries  reusing  previous configurations. Our key insight is that, when a software is  deployed, there are examples of the system already executing under a different environment.
+Hence, rather than re-configuring everything from scratch, we try to learn configurations from prior experience.
+\begin{figure}[t!]
+    \begin{tabular}{|p{3.3in}|}\hline\small
+    \begin{enumerate}[leftmargin=1em]
+    \item A fraction (about 10\%) of all available data is sampled. A prediction model is built with these sampled datasets.
+    \item Each environment is   a {\em source} that    learns a prediction model, and the remaining are     {\em targets} (in a round-robin fashion).
+    \item Performance of all the environments   ranked from the best source environment to the worst. Environments with a {\em poor} performance (i.e., those ranked last) are eliminated.
+    \item For the remaining environments, another 10\% of the samples are added, and the steps (a)--(c) are repeated.
+    \item When the ranking order doesn't change for a fixed number of repeats, we terminate the process and nominate the best-ranked environment(s) as the bellwether.
+    \item Finally,  we use these bellwether environments to train a performance prediction model with   regression trees~\cite{breiman2017classification}.
+    \end{enumerate}
+    \\\hline\end{tabular}
+    \caption{\textbf{The {\bf \tool} algorithm}}\label{fig:outline}
+\end{figure}
+
+
+\begin{figure*}[t!]
+\centering
+\includegraphics[width=.9\linewidth]{beetle.pdf}
+    \caption{A overview of the \textit{discovery} (Fig.~\protect\ref{fig:intro_fig}-(a) and Fig.~\protect\ref{fig:intro_fig}-(c)) and transfer phase of (Fig.~\protect\ref{fig:intro_fig}-(b) and Fig.~\protect\ref{fig:intro_fig}-(d)) \tool}
+    \label{fig:intro_fig}
+\end{figure*}
+But given so much prior experience, what experience should
+we use and which should we ignore?
+%The issue of identifying a suitable source of past knowledge is a common problem in transfer learning. 
+%To address this, some researchers~
+Recently~\cite{krishna18,mensah17b} we  have 
+observed a  \textit{bellwether} effect:
+\begin{center}
+\noindent \begin{tabular}{!{\color{gray}\vrule width 2pt}p{0.85\linewidth}}      
+        {\em When analyzing a community of software data, there is \underline{one or more} exemplary source data, called \underline{bellwether(s)}, which best defines predictors for all the remaining datasets.}
+\end{tabular}
+\end{center}
+% 
+% 
+% 
+We  also showed that transfer learning might result in ``negative transfer'' (i.e. the inadvertent application of inappropriate prior knowledge) and provided empirical evidence to answer~\cite{jamshidi2017transfer2}:
+\begin{center}
+\noindent \begin{tabular}{!{\color{gray}\vrule width 2pt}p{0.85\linewidth}}      
+        {\em \underline{Why} and \underline{when} does transfer learning work for performance modeling and analysis of configurable systems?}
+\end{tabular}
+\end{center}
+Inspired by the success of bellwethers in other areas~\cite{krishna18,mensah17b,jamshidi2017transfer2}, this paper proposes
+ a new transfer learner for software configuration called
+\underline{Be}llw\underline{e}ther \underline{T}ransfer \underline{Le}arner (henceforth referred to as \textbf{\tool}). \tool    transfers knowledge  using just a few samples from a carefully identified source environment(s). \tool is outlined in Fig.~\ref{fig:outline} and illustrated in Fig.~\ref{fig:intro_fig}. We tested \tool on:
+
+% %\section*{\textbf{{\bf BEETLE}: \underline{Be}llweth\underline{e}r \underline{T}ransfer \underline{Le}arner}}
+% \tool works as follows: 
+% (1)~{\em Discovery:}~finding the bellwether environment, and (2)~{\em Transfer:} using the bellwether environment to find the near-optimal configuration for target environments. These steps are outlined below,
+% \be
+% \item \textit{Discovery}. Use the bellwether effect to {\em discover} which of the available environments are best suited to be a {\em source environment} (known as the \textit{bellwether environment}). To do this, \tool uses a {\bf racing algorithm} to sequentially evaluate candidate environments~\cite{birattari2002racing}. In short,
+
+
+%We conjecture that once a \textit{bellwether source environment} is identified, it is possible to build a simple transfer model without any complex methods and still discover near-optimal configurations in a target environment. 
+
+
+
+%\section*{\textbf{Results}}
+
+\begin{itemize}
+\item
+A video encoder;
+\item An SAT solver;
+\item A SQL database;
+\item A high-performance C-compiler;
+\item A streaming data analytics tool.
+\end{itemize}
+In all these test cases, we found that \tool found configurations as good as or better than those found by other state-of-the-art transfer learners while requiring only $\frac{1}{7}$-th of the measurements needed by those other methods. 
+ 
+As to our overall contribution to the configuration literature, we say that this is an important paper:
+\bi
+\item
+Reducing the number of measurements required to configure software is advantageous since collecting data in this domain can be expensive (e.g., in our case studies, recompile the entire system and rerun the entire test suite).
+\item
+In terms of comparative performance, bellwethers were usually as good, and sometimes even a little better, than the state-of-the-art.
+\ei
+Also,
+ BEETLE establishes an easy to use \textit{baseline} for transfer learning in configuration optimization. The use of \tool is very simple in that it just uses the bellwether environment to construct a simple optimization model with off-the-shelf ML algorithms (without any further complex data manipulation).
+ 
+ \subsection*{Reproduction Package}
+ 
+A  full implementation of  bellwethers
+including all the case studies presented here are available online at \url{https://git.io/fjsky}.
+
+
+%  Accordingly, we assert that the use of bellwethers benefits practitioners and researchers:
+%  \begin{itemize}
+%  \item
+%  Researchers can use results of \tool as a ``goty checkr'', i.e., researchers can compare their results to BEETLE as a baseline; 
+% \item
+% Practitioners can also use \tool as an ``off-the-shelf'' transfer learner for configuration optimization instead of having to develop new transfer learners (or adapt existing ones from other domains).
+% \end{itemize}
+% % \section*{\textbf{Contributions}}
+% % % Overall, this work makes the following contributions: 
+% % \be
+% % \item \textit{Source selection}: We show that the \textit{bellwether effect} exists in performance optimization and that we can use this to discover suitable sources (called bellwether environments) to perform transfer learning.
+% % \item \textit{Cheap source selection:} 
+% % \tool, using bellwethers, evaluates at most $\approx10\%$ of the configuration space.
+% % \item \textit{Simple Transfer learning using Bellwethers:} We develop a novel transfer learning algorithm using bellwether called \tool that exploits the bellwether environment to construct a simple transfer learner.
+% % \item \textit{More effective than non-transfer learning: } We show that using the \tool is \textit{better} than non-transfer learning approaches. It is also a lot more economical.
+% % \item \textit{More effective than state-of-the-art methods: } Configurations discovered using the bellwether environment are better than the state-of-the-art 
+% % methods~\cite{valov2017transferring, jamshidi2017transfer}.
+% % \item \textit{Reproduction Package: } To assist other researchers, a reproduction package with all our scripts and data are available online (see~\url{https://git.io/fjsky}).
+% % \ee
+% % \section*{\textbf{Evaluation}}
+
+
+% \section*{Evaluation\\ (Based on the CFP for the Journal First Track)}
+% \subsection*{Is the Paper in Scope for ICSE?} 
+% % 
+% Yes. This paper is about software configuration
+% and numerous recent ICSE papers have explored that issue~\cite{zhang13,zhang14,siegmund15,medeiros16,kaltenecker19}.
+
+% \subsection*{Is This A ``Priority Submission''?}
+% This work qualifies under priority submission under the ICSE 2021 journal ﬁrst CFP guidelines, \textit{``priority will be given to papers with authors that have no (or fewer) papers accepted at the other ICSE tracks''}. The ﬁrst author of this JF submission has no papers accepted at other ICSE tracks and would like to use this opportunity to participage  in ICSE’21.
+
+% \subsection*{Is the Paper Part of Another JF Program?}
+% No.
+
+% \subsection*{Does the Paper Report a Secondary Study?}
+
+% No. This paper is a technical paper reporting a novel bellwether based transfer learning approach called BEETLE.
+ 
+% \subsection*{Is the Paper Completely New/Novel?}
+% % 
+% Yes. The transfer learning method, the core algorithm, and the experiments with BEETLE have not been reported before. %Further, this paper is not a minor change to prior work.
+
+
+\balance
+\bibliographystyle{IEEEtran}
+% \balance
+\bibliography{main} 
+\end{document}
+
+
